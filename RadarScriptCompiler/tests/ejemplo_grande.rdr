@@ -1,0 +1,76 @@
+programa operativo_radar_extendido;
+
+entero distancia_norte;
+entero distancia_sur;
+entero ciclos_revision;
+entero contador_alertas;
+decimal viento_norte;
+decimal viento_sur;
+decimal lluvia_actual;
+decimal temperatura_base;
+cadena zona_critica;
+cadena resumen_estado;
+cadena etiqueta_turno;
+booleano tormenta_detectada;
+booleano revision_activa;
+
+distancia_norte = 180;
+distancia_sur = 95;
+ciclos_revision = 4;
+contador_alertas = 0;
+viento_norte = 82.5;
+viento_sur = 48.0;
+lluvia_actual = 63.7;
+temperatura_base = 24.5;
+zona_critica = "NORTE";
+resumen_estado = "Monitoreo iniciado";
+etiqueta_turno = "TURNO A";
+tormenta_detectada = falso;
+revision_activa = verdadero;
+
+reporte("Inicio de jornada: " + etiqueta_turno);
+reporte(resumen_estado);
+
+si viento_norte > 70 entonces
+    tormenta_detectada = verdadero;
+    contador_alertas = contador_alertas + 1;
+    alerta("Viento fuerte detectado en " + zona_critica);
+fin
+
+si lluvia_actual > 60 entonces
+    contador_alertas = contador_alertas + 1;
+    alerta("Lluvia intensa detectada en " + zona_critica);
+fin
+
+si distancia_sur < 100 entonces
+    reporte("Unidad cercana en SUR");
+fin
+
+mientras ciclos_revision > 0 hacer
+    reporte("Ciclo de revision en progreso");
+    distancia_norte = distancia_norte - 25;
+    distancia_sur = distancia_sur - 10;
+    viento_norte = viento_norte - 3.5;
+    lluvia_actual = lluvia_actual - 5.0;
+    ciclos_revision = ciclos_revision - 1;
+
+    si distancia_norte < 100 entonces
+        reporte("Distancia norte por debajo del umbral");
+    fin
+
+    si viento_norte > 65 entonces
+        alerta("Persisten rafagas peligrosas en " + zona_critica);
+    fin
+fin
+
+si tormenta_detectada == verdadero entonces
+    resumen_estado = "Operacion con alertas activas";
+fin
+
+si contador_alertas > 2 entonces
+    alerta("Escalamiento inmediato para " + zona_critica);
+fin
+
+reporte("Alertas emitidas durante la jornada");
+reporte(resumen_estado);
+reporte("Proceso finalizado");

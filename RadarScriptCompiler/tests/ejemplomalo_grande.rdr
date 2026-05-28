@@ -1,0 +1,42 @@
+programa operativo_radar_con_fallas
+
+entero distancia_norte;
+entero distancia_sur
+decimal viento_norte;
+decimal lluvia_actual;
+cadena zona_critica;
+cadena mensaje_estado;
+booleano tormenta_detectada;
+booleano revision_activa;
+
+distancia_norte = 180;
+distancia_sur = "noventa";
+viento_norte = 82.5;
+lluvia_actual = verdadero;
+zona_critica = "NORTE;
+mensaje_estado = "Monitoreo iniciado";
+tormenta_detectada = 1;
+revision_activa = falso;
+
+reporte("Inicio de jornada" + zona_critica);
+
+si viento_norte > "70" entonces
+    alerta("Viento fuerte detectado en " + zona_critica)
+fin
+
+si lluvia_actual > 60 entonces
+    contador_alertas = contador_alertas + 1;
+    alerta("Lluvia intensa detectada en " + zona_critica);
+fin
+
+mientras revision_activa > falso hacer
+    distancia_norte = distancia_norte - "25";
+    viento_norte = viento_norte - 3.5
+    mensaje_estado = mensaje_estado + 1;
+    reporte("Ciclo de revision en progreso");
+fin
+
+si distancia_sur < 100 entonces
+    reporte("Unidad cercana en SUR");
+
+reporte("Proceso finalizado")

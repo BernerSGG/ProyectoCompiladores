@@ -1,0 +1,122 @@
+Código objeto (.obj)
+
+MOV distancia_norte, 180
+MOV distancia_sur, 95
+MOV ciclos_revision, 4
+MOV contador_alertas, 0
+MOV viento_norte, 82.5
+MOV viento_sur, 48.0
+MOV lluvia_actual, 63.7
+MOV temperatura_base, 24.5
+MOV zona_critica, "NORTE"
+MOV resumen_estado, "Monitoreo iniciado"
+MOV etiqueta_turno, "TURNO A"
+MOV tormenta_detectada, falso
+MOV revision_activa, verdadero
+LOAD "Inicio de jornada: "
+LOAD etiqueta_turno
+CONCAT
+REPORTE
+LOAD resumen_estado
+REPORTE
+LOAD viento_norte
+PUSH 70
+GT
+JMPF L1
+MOV tormenta_detectada, verdadero
+LOAD contador_alertas
+PUSH 1
+ADD
+STORE contador_alertas
+LOAD "Viento fuerte detectado en "
+LOAD zona_critica
+CONCAT
+ALERTA
+L1:
+LOAD lluvia_actual
+PUSH 60
+GT
+JMPF L2
+LOAD contador_alertas
+PUSH 1
+ADD
+STORE contador_alertas
+LOAD "Lluvia intensa detectada en "
+LOAD zona_critica
+CONCAT
+ALERTA
+L2:
+LOAD distancia_sur
+PUSH 100
+LT
+JMPF L3
+LOAD "Unidad cercana en SUR"
+REPORTE
+L3:
+L4:
+LOAD ciclos_revision
+PUSH 0
+GT
+JMPF L5
+LOAD "Ciclo de revision en progreso"
+REPORTE
+LOAD distancia_norte
+PUSH 25
+SUB
+STORE distancia_norte
+LOAD distancia_sur
+PUSH 10
+SUB
+STORE distancia_sur
+LOAD viento_norte
+PUSH 3.5
+SUB
+STORE viento_norte
+LOAD lluvia_actual
+PUSH 5.0
+SUB
+STORE lluvia_actual
+LOAD ciclos_revision
+PUSH 1
+SUB
+STORE ciclos_revision
+LOAD distancia_norte
+PUSH 100
+LT
+JMPF L6
+LOAD "Distancia norte por debajo del umbral"
+REPORTE
+L6:
+LOAD viento_norte
+PUSH 65
+GT
+JMPF L7
+LOAD "Persisten rafagas peligrosas en "
+LOAD zona_critica
+CONCAT
+ALERTA
+L7:
+JMP L4
+L5:
+LOAD tormenta_detectada
+PUSH verdadero
+EQ
+JMPF L8
+MOV resumen_estado, "Operacion con alertas activas"
+L8:
+LOAD contador_alertas
+PUSH 2
+GT
+JMPF L9
+LOAD "Escalamiento inmediato para "
+LOAD zona_critica
+CONCAT
+ALERTA
+L9:
+LOAD "Alertas emitidas durante la jornada"
+REPORTE
+LOAD resumen_estado
+REPORTE
+LOAD "Proceso finalizado"
+REPORTE
+HALT

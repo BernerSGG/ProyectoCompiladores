@@ -1,0 +1,24 @@
+programa prueba
+
+entero x
+decimal y;
+cadena texto;
+booleano bandera;
+
+x = 10;
+y = 20.5;
+
+texto = "Hola mundo;
+
+z = 5;
+
+x = "cadena";
+
+si x > 5 entonces
+    alerta("OK")
+    
+mientras y > verdadero hacer
+    y = y - 1
+fin
+
+reporte("Fin del programa")

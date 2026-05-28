@@ -1,0 +1,12 @@
+LOAD "tormenta"
+ALERTA
+LOAD 3
+STORE x
+LOAD x
+PUSH 2
+GT
+JMPF L1
+LOAD "ok"
+REPORTE
+L1:
+HALT

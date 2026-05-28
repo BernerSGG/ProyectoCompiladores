@@ -1,0 +1,15 @@
+Tabla de símbolos (.sym)
+
+distancia_norte    : entero
+distancia_sur      : entero
+ciclos_revision    : entero
+contador_alertas   : entero
+viento_norte       : decimal
+viento_sur         : decimal
+lluvia_actual      : decimal
+temperatura_base   : decimal
+zona_critica       : cadena
+resumen_estado     : cadena
+etiqueta_turno     : cadena
+tormenta_detectada : booleano
+revision_activa    : booleano
